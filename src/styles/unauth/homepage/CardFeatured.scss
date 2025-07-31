@@ -1,0 +1,317 @@
+// @import 'Variables';
+// @import 'mixins';
+// @import 'base';
+
+.card__featured-product {
+    position: relative;
+    background-color: #ffffff;
+    overflow: hidden;
+    height: 83%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.card__featured-product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+
+
+.product-image {
+    width: 100%;
+    height: 250px;
+}
+
+.swiper-wrapper {
+    height: 450px!important
+}
+
+
+
+.product-info {
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.product-info::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2F1AC4;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+
+.card__featured-product:hover .product-info::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
+
+.product-info>* {
+    position: relative;
+    z-index: 1;
+}
+
+.card__featured-product:hover .product-info {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+.card__featured-product:hover .card__featured__viewdetail {
+    display: block;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #FB2E86;
+    transition: color 0.3s;
+    padding-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    padding : 12px 7px 0px 7px;
+}
+
+.card__featured-product:hover .product-name,
+.card__featured-product:hover .product-code,
+.card__featured-product:hover .product-price {
+    color: #fff;
+}
+
+.color-options {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 8px 0;
+}
+
+.color {
+    width: 16px;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.color.green {
+    background-color: #2BD9AF;
+}
+
+.color.purple {
+    background-color: #9F63B5;
+}
+
+.color.blue {
+    background-color: #2238AF;
+}
+
+.product-code {
+    font-size: 0.9rem;
+    color: #888;
+    transition: color 0.3s;
+}
+
+.product-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #222;
+    transition: color 0.3s;
+}
+
+/* Action Buttons */
+.card-actions {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    padding: 6px 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.card__featured-product:hover .card-actions {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.card__featured-product:hover .card__featured__viewdetail {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+
+.card__featured__viewdetail {
+    position: absolute;
+    bottom: 36%;
+    left: 30%;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+
+.card__featured__viewdetail {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 12px 0;
+}
+
+.card-actions button {
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    font-size: 18px;
+    color: #3F43D7;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.card-actions button:hover i {
+    color: #FB2E86;
+}
+
+.view-details {
+    display: none;
+    margin-top: 8px;
+    background-color: #28a745;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: opacity 0.3s;
+}
+
+.card__featured-product:hover .view-details {
+    display: inline-block;
+}
+
+
+.card__featured__nav {
+    display: inline-block;
+    background: #21c96b;
+    color: #fff !important;
+    font-size: 13px;
+    font-family: var(--font-family-title);
+    font-weight: 500;
+    padding: 5px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(33, 201, 107, 0.08);
+    cursor: pointer;
+}
+
+
+.swiper-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    gap: 8px;
+}
+
+.swiper-pagination-bullet {
+    width: 24px;
+    height: 6px;
+    border-radius: 3px;
+    background: #fb2e86;
+    opacity: 0.2;
+    margin: 0 4px !important;
+    transition: opacity 0.2s, background 0.2s;
+    margin-top: -3rem!important;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    width: 32px;
+
+    background: #fb2e86;
+}
+
+.swiper {
+  position: relative;
+}
+.card-featured-swiper {
+  position: relative;
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #fff !important;
+    background: linear-gradient(135deg, #eb81af 60%, #a259c9 100%) !important;
+    border: none !important;
+    border-radius: 5px !important;
+    width: 40px !important;
+    height: 55px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px !important;
+    box-shadow: 0 2px 8px rgba(251, 46, 134, 0.15);
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    top: 40% !important;
+    transition:
+      opacity 0.3s cubic-bezier(0.4,0,0.2,1),
+      transform 0.4s cubic-bezier(0.4,0,0.2,1),
+      background 0.2s, color 0.2s, box-shadow 0.2s !important;
+  }
+
+  .swiper-button-prev {
+    transform: translateX(-40px);
+  }
+  .swiper-button-next {
+    transform: translateX(40px);
+  }
+
+  &:hover {
+    .swiper-button-next,
+    .swiper-button-prev {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+  }
+
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    background: linear-gradient(135deg, #a259c9 60%, #fb2e86 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 6px 20px rgba(251, 46, 134, 0.22);
+    opacity: 1 !important;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 22px !important;
+    font-weight: bold;
+    color: inherit;
+    line-height: 1;
+  }
+}

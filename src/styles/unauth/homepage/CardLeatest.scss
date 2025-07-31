@@ -1,0 +1,203 @@
+// @import 'Variables';
+// @import 'mixins';
+.latest-products__option span {
+    margin: 0 15px;
+    font-size: 18px;
+    font-family: 'lato';
+}
+
+.latest-products__item {
+
+    height: 306px;
+    background: #fff;
+    border-radius: 12px;
+    /* box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); */
+    overflow: hidden;
+    position: relative;
+
+}
+.MuiTabs-root {
+  min-height: 48px;
+}
+
+.MuiTabs-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px; // chỉnh khoảng cách giữa các tab nếu muốn
+}
+
+.MuiTab-root {
+  font-size: 2rem;
+  font-family: 'Lato', sans-serif;
+  color: #1b2065; // xanh đậm
+  text-transform: none;
+  min-width: unset;
+  min-height: 48px;
+  padding: 0 16px;
+  font-weight: 400;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.MuiTab-root.Mui-selected {
+  color: #fb2e86 !important; // hồng
+  font-weight: 500;
+  border-bottom: 2.5px solid #fb2e86;
+  background: none;
+}
+
+.MuiTabs-indicator {
+  display: none; // ẩn indicator mặc định, chỉ dùng border-bottom custom
+}
+
+/* .latest-products__item:hover .latest-products__img-wrapper {
+    opacity: 1;
+} */
+
+.latest-products__item:hover .latest-products__badge {
+    transform: rotate(-20deg);
+    border-radius: 8px 18px 0 8px;
+    opacity: 1;
+}
+
+.latest-products__item:hover .latest-products__actions {
+
+    opacity: 1;
+}
+
+.latest-products__img-wrapper {
+    opacity: 1;
+    width: 100%;
+    height: 270px;
+    background: #F6F7FB;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.latest-products__badge {
+    opacity: 0;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    background: #3F43D7;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 18px 4px 10px;
+    border-radius: 18px 0 20px 0;
+    z-index: 2;
+    width: 90px;
+    box-shadow: 0 2px 8px rgba(63, 67, 215, 0.08);
+    transition:
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.latest-products__img {
+    width: 300px;
+    height: 270px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 0px;
+}
+
+.latest-products__actions {
+    position: absolute;
+    left: 10px;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 2;
+    opacity: 0;
+}
+
+.latest-products__actions button {
+    background: #F6F7FB;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3F43D7;
+    font-size: 16px;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.latest-products__actions button:hover {
+    background: #FB2E86;
+    color: #fff;
+}
+
+.latest-products__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 8px;
+    padding: 0px 10px;
+}
+
+.latest-products__name {
+    color: var(--color-title);
+    font-family: var(--font-family-title);
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: start;
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    padding-bottom: 5px;
+
+}
+
+.latest-products__name::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 4px;
+    background: #EEEFFB;
+    border-radius: 2px;
+    z-index: 1;
+
+}
+
+.latest-products__price {
+    color: var(--color-title);
+    margin-left: 4px;
+    font-size: 14px;
+
+}
+
+.latest-products__price--old {
+    color: #FB2448;
+    text-decoration: line-through;
+    font-size: 12px;
+    margin-left: 4px;
+    margin-right: 12px;
+    padding: 2px 0 5px 0;
+}
+
+.latest-products__prices {
+    padding-bottom: 6px !important;
+}
+
+
+.MuiButtonBase-root :active {
+    color: pink!important;
+}
