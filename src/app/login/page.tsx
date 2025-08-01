@@ -5,6 +5,7 @@ import "@/styles/auth/Login.scss"
 import { useDebounce } from "@/hooks/useDebounce";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,14 +32,16 @@ export default function Login() {
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
-        toast.success("Đăng nhập thành công", { autoClose: 2000 });
-      window.location.href = "/";
+      
+      toast.success("Đăng nhập thành công ✅", { autoClose: 2000 });
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
+
     } catch (err: any) {
-      alert("Login failed! " + err.message);
+      toast.error("Login failed! " + err.message, { autoClose: 2000 });
     }
   };
-
-
 
   return (
     <div>
@@ -84,6 +87,10 @@ export default function Login() {
           </form>
         </div>
       </section>
+
+      {/* ToastContainer cần được render */}
+      <ToastContainer position="top-right" />
+
       <section className="fade-right reveal brand mt-5 mb-5">
         <div className="brand-logos d-flex justify-content-between align-items-center my-5" style={{ width: "85%", margin: "0 auto" }} >
           <Link href="https://fashionlive.com" target="_blank">

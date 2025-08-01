@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import '@/styles/global.css';
 import { ReactNode } from 'react';
+import '@/styles/layout/header.scss';
+import '@/styles/layout/footer.scss'
 import { cn } from '@/utils/helpers';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-
+import { ReduxProvider } from '@/redux/Provider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -31,9 +32,11 @@ export default function RootLayout({
           inter.className,
         )}
       >
+        <ReduxProvider>
         <Header />
         {children}
         <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );

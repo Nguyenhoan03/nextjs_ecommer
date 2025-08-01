@@ -7,10 +7,18 @@ type HomeProductResponse = {
     special_offer: Product[];
   };
   trending: Product[];
+  topCategory: [
+    id: number,
+    name: string,
+    slug: string,
+    price: number,
+    salePrice: number,
+    thumbnail: string,
+  ]
 };
 
 type Product = {
- id: number;
+  id: number;
   name: string;
   slug: string;
   description: string;

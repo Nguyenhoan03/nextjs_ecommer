@@ -13,6 +13,7 @@ import TopCateroryClient from '@/components/unauth/homepage/TopCategoryClient';
 import '@/styles/unauth/homepage/CardLeatest.scss';
 import '@/styles/unauth/homepage/CardFeatured.scss';
 import '@/styles/unauth/homepage/home.scss';
+import BackToTop from '@/components/ui/BackToTop';
 export const metadata: Metadata = {
   title: 'Index page',
   description: 'Description of the index page',
@@ -48,6 +49,7 @@ const shopexOffers = [
 
 export default async function IndexPage() {
   const apiData = await fetcher<HomeProductResponse>(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/products/home`);
+
   return (
     <main className="container">
       <div className="banner_slide">
@@ -177,7 +179,7 @@ export default async function IndexPage() {
       <DiscountItemClient />
 
 
-      <TopCateroryClient />
+      <TopCateroryClient dataTopCategory={apiData?.topCategory || []} />
 
 
       <section className="fade-left reveal img-banner mt-5 mb-5">
@@ -292,16 +294,30 @@ export default async function IndexPage() {
 
         </div>
       </section>
-      {/* {showBackToTop && (
-        <Button
-          id="backToTopBtn"
-          className="back-to-top"
-          aria-label="Lên đầu trang"
-          onClick={handleBackToTop}
-        >
-          <FaArrowUp />
-        </Button>
-      )} */}
+
+      <section>
+        <div className="toolbox-contact d-flex gap-2 position-fixed bottom-8 end-2">
+          <Link href="/contact" className="toolbox-contact__link">
+            <button className="toolbox-contact__btn toolbox-contact__btn--pink">
+              <Image src="/assets/images/unauth/toolbox-contact-phone.png" alt="Contact Us" width={20} height={20} />
+            </button>
+          </Link>
+          <Link href="/contact" className="toolbox-contact__link">
+            <button className="toolbox-contact__btn toolbox-contact__btn--pink">
+              <Image src="/assets/images/unauth/toolbox-contact-mes.png" alt="Contact Us" width={20} height={20} />
+            </button>
+          </Link>
+          <Link href="/contact" className="toolbox-contact__link">
+            <button className="toolbox-contact__btn toolbox-contact__btn--pink">
+              <Image src="/assets/images/unauth/toolbox-contact-zalo.png" alt="Contact Us" width={20} height={20} />
+            </button>
+          </Link>
+          <Link href="/">
+            <BackToTop />
+          </Link>
+        </div>
+      </section>
+
     </main>
   );
 }

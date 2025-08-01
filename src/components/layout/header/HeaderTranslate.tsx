@@ -2,33 +2,31 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { FaUser, FaHeart, FaCartShopping } from "react-icons/fa6";
+import { FaUser, FaHeart, FaCartShopping, FaChevronDown } from "react-icons/fa6";
 import { Menu, MenuItem, IconButton, Tooltip } from "@mui/material";
-
-type User = {
-  id: number;
-  name: string;
-  email: string;
-};
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "@/redux/store";
+import { setUser, logout } from "@/redux/slice/authSlice";
 
 const HeaderTranslate = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const { user, isLoggedIn } = useSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("/api/auth/me", { cache: "no-store" });
+        const res = await fetch("/api/auth/me", { cache: "no-store", credentials: "include" });
         if (res.ok) {
           const data = await res.json();
-          setUser(data);
+          dispatch(setUser(data));
         }
       } catch {
-        setUser(null);
+        dispatch(logout());
       }
     };
     fetchUser();
-  }, []);
+  }, [dispatch]);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -38,15 +36,30 @@ const HeaderTranslate = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+    dispatch(logout());
+    window.location.href = "/";
+  };
+
   return (
-    <div className="flex items-center gap-6 text-white text-sm">
+    <div className="flex items-center gap-6 text-white text-sm headerTranslate">
       {/* User section */}
-      {user ? (
+      {isLoggedIn && user ? (
         <>
           <Tooltip title="Thông tin tài khoản">
-            <IconButton onClick={handleClick} style={{ color: "white" }} className="relative">
+            <IconButton
+              onClick={handleClick}
+              style={{ color: "white" }}
+              className="relative align-center justify-center"
+            >
               <FaUser />
-              <span className="ml-2 username-text">{user.name}</span>
+              <span className="ml-2 username-text">
+                {user.name} <FaChevronDown className="ml-1 text-xs" />
+              </span>
             </IconButton>
           </Tooltip>
 
@@ -56,6 +69,7 @@ const HeaderTranslate = () => {
             onClose={handleClose}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}
+            className="headerTranslate__menuItem"
           >
             <MenuItem onClick={handleClose}>
               <Link href="/account">👤 Thông tin tài khoản</Link>
@@ -63,8 +77,8 @@ const HeaderTranslate = () => {
             <MenuItem onClick={handleClose}>
               <Link href="/orders">📦 Đơn hàng của tôi</Link>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Link href="/logout" className="text-red-500">🚪 Đăng xuất</Link>
+            <MenuItem onClick={handleLogout}>
+              <span className="text-red-500">🚪 Đăng xuất</span>
             </MenuItem>
           </Menu>
         </>
@@ -77,7 +91,7 @@ const HeaderTranslate = () => {
       {/* Wishlist */}
       <Link
         href="/wishlist"
-        className="flex items-center gap-2 hover:text-gray-200 transition"
+        className="flex items-center gap-2 hover:text-gray-200 transition pl-5"
       >
         <FaHeart /> <span>Wishlist</span>
       </Link>

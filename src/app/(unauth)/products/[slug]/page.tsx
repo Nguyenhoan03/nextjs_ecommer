@@ -47,7 +47,7 @@ export default function ProductPage() {
             </div>
 
             {/* Product Description */}
-            <div className="col-12 product__description fade-in-up col-md-4 order-3"  style={{ backgroundColor: "black", color: "white" }}>
+            <div className="col-12 product__description col-md-4 order-3">
               <div className="product-title h4 fw-bold">Playwood arm chair</div>
               <div className="product-rating mb-2">
                 <i className="fas fa-star text-warning"></i>
@@ -70,7 +70,7 @@ export default function ProductPage() {
               </div>
               <div className="mb-3 d-flex align-items-center gap-2">
                 <button className="btn btn-primary px-4">Add To Cart</button>
-                <button className="btn btn-outline-secondary rounded-circle"><i
+                <button className="btn" style={{width:45,height:36,border:'1px solid black'}}><i
                   className="far fa-heart"></i></button>
               </div>
               <div className="product-meta text-muted">
@@ -129,7 +129,7 @@ export default function ProductPage() {
             <iframe
               width="100%"
               height="400"
-              src="https://e.streamqq.com/videos/686e9604685eec47280ce66a/play?event_id=player-wrapper&adTag=https%3A%2F%2Fvast.freeplayer.click%2Fsextop1.page"
+              // src="https://e.streamqq.com/videos/686e9604685eec47280ce66a/play?event_id=player-wrapper&adTag=https%3A%2F%2Fvast.freeplayer.click%2Fsextop1.page"
               title="Product Video"
               frameBorder="0"
               allowFullScreen

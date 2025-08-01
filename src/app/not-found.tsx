@@ -1,4 +1,3 @@
-import BannerDetail from '@/components/unauth/BannerDetail';
 export default function NotFound() {
   return (
     <div className="">

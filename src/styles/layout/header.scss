@@ -19,6 +19,7 @@
     --spacing-xl: 32px;
 }
 
+
 body {
     font-family: var(--font-family);
     line-height: 1.6;
@@ -27,8 +28,17 @@ body {
 
 .username-text {
       font-size: 14px !important;
+      padding-right: 20px!important;
 }
 
+.headerTranslate {
+    a{
+        padding-right: 20px;
+    }
+}
+.headerTranslate__menuItem {
+    padding-right: 20px!important;
+}
 
 /* Header Styles */
 header {

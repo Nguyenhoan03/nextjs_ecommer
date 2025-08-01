@@ -1,8 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaMagnifyingGlass, FaChevronDown, FaEnvelope, FaPhone, FaBars } from "react-icons/fa6";
+import { FaMagnifyingGlass, FaEnvelope, FaPhone, FaBars } from "react-icons/fa6";
 import HeaderTranslate from '@/components/layout/header/HeaderTranslate';
-import "@/styles/layout/_header.scss";
 
 const Header = () => {
   return (
@@ -12,9 +11,9 @@ const Header = () => {
           <div className="row align-items-center top-bar-content">
             <div className="col-md-6 d-flex align-items-center top-bar-left gap-3">
               <span><FaEnvelope /> mhhasanul@gmail.com</span>
-              <span><FaPhone /> (12345)67890</span>
+              <span><FaPhone /> (12345)6789cvb0</span>
             </div>
-            <div className="col-md-6 d-flex justify-content-md-end align-items-center top-bar-right gap-3">
+            <div className="col-md-6 d-flex justify-content-md-end">
               <HeaderTranslate />
             </div>
           </div>
