@@ -20,7 +20,7 @@ const CardTopCategory = ({ item }: CategoryProps) => {
                         height={200}
                     />
                     <Button className="top-categories__btn">
-                        <Link href={item.slug}>View Shop</Link>
+                        <Link href={`products/${item.slug}`}>View Shop</Link>
                     </Button>
                 </div>
             </div>

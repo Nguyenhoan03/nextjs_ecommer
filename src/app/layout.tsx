@@ -1,13 +1,18 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ReactNode } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
 import '@/styles/layout/header.scss';
 import '@/styles/layout/footer.scss'
+
+
+import { ReactNode } from 'react';
 import { cn } from '@/utils/helpers';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { ReduxProvider } from '@/redux/Provider';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -32,6 +37,7 @@ export default function RootLayout({
           inter.className,
         )}
       >
+      <ToastContainer position="top-right" />
         <ReduxProvider>
         <Header />
         {children}

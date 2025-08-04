@@ -1,3 +1,4 @@
+import BannerBrand from "@/components/layout/BannerBrand";
 export default function NotFound() {
   return (
     <div className="">
@@ -19,15 +20,7 @@ export default function NotFound() {
         </a>
       </section>
 
-      <section className="fade-right reveal brand mt-5 mb-5">
-        <div className="brand-logos d-flex justify-content-between align-items-center my-5" style={{ width: "85%", margin: "0 auto" }}>
-          <a href="https://fashionlive.com" target="_blank"><img src="/assets/images/unauth/Screenshot 2025-05-20 153723.png" alt="Fashion Live" className="brand-logo img-fluid" /></a>
-          <a href="https://handcrafted.com" target="_blank"><img src="/assets/images/unauth/Screenshot 2025-05-20 153816.png" alt="Hand Crafted" className="brand-logo img-fluid" /></a>
-          <a href="https://mestonix.com" target="_blank"><img src="/assets/images/unauth/Screenshot 2025-05-20 153833.png" alt="Mestonix" className="brand-logo img-fluid" /></a>
-          <a href="https://sunshine.com" target="_blank"><img src="/assets/images/unauth/Screenshot 2025-05-20 153852.png" alt="Sunshine" className="brand-logo img-fluid" /></a>
-          <a href="https://pure.com" target="_blank"><img src="/assets/images/unauth/Screenshot 2025-05-20 153911.png" alt="Pure" className="brand-logo img-fluid" /></a>
-        </div>
-      </section>
+      <BannerBrand />
     </div>
   );
 }

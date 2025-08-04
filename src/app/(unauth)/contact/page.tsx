@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 import '@/styles/unauth/contact.scss'
+import Image from 'next/image'
+import BannerBrand from "@/components/layout/BannerBrand";
 const page = () => {
   return (
     <div>
@@ -88,35 +90,14 @@ const page = () => {
                 </div>
                 
                 <div className="col-lg-6 col-md-12 text-center">
-                    <img src="./images/g10.png" alt="Contact Illustration"
-                        className="img-fluid contact-touch-img" />
+                    <Image src="/assets/images/unauth/g10.png" alt="Contact Illustration" width={500} height={500} className="img-fluid contact-touch-img" />
                 </div>
             </div>
         </section>
 
 
-        <section className="fade-right reveal brand mt-5 mb-5">
-            <div className="brand-logos d-flex justify-content-between align-items-center my-5"
-                style={{width:"85%",margin: "0 auto"}}>
-                <Link href="https://fashionlive.com" target="_blank">
-                    <img src="./images/Screenshot 2025-05-20 153723.png" alt="Fashion Live"
-                        className="brand-logo img-fluid" />
-                </Link>
-                <Link href="https://handcrafted.com" target="_blank">
-                    <img src="./images/Screenshot 2025-05-20 153816.png" alt="Hand Crafted"
-                        className="brand-logo img-fluid" />
-                </Link>
-                <Link href="https://mestonix.com" target="_blank">
-                    <img src="./images/Screenshot 2025-05-20 153833.png" alt="Mestonix" className="brand-logo img-fluid" />
-                </Link>
-                <Link href="https://sunshine.com" target="_blank">
-                    <img src="./images/Screenshot 2025-05-20 153852.png" alt="Sunshine" className="brand-logo img-fluid" />
-                </Link>
-                <Link href="https://pure.com" target="_blank">
-                    <img src="./images/Screenshot 2025-05-20 153911.png" alt="Pure" className="brand-logo img-fluid" />
-                </Link>
-            </div>
-        </section>
+        
+          <BannerBrand />
     </div>
   )
 }

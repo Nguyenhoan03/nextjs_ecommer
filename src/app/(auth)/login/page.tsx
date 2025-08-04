@@ -3,13 +3,19 @@ import React, { useState } from "react";
 import Link from "next/link";
 import "@/styles/auth/Login.scss"
 import { useDebounce } from "@/hooks/useDebounce";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { useRouter, useSearchParams } from "next/navigation";
 import 'react-toastify/dist/ReactToastify.css';
+import { useAppDispatch } from "@/redux/store";
+import { setUser } from "@/redux/slice/authSlice";
+import BannerBrand from "@/components/layout/BannerBrand";
 
 export default function Login() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+   const dispatch = useAppDispatch();
   const debounceEmail = useDebounce(email, 200)
   const debouncePassword = useDebounce(password, 200)
 
@@ -27,15 +33,16 @@ export default function Login() {
         }),
       });
 
-      const data = await response.json(); 
+      const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
-      
-      toast.success("Đăng nhập thành công ✅", { autoClose: 2000 });
+      dispatch(setUser(data.user));
+      toast.success("Đăng nhập thành công", { autoClose: 2000 });
       setTimeout(() => {
-        window.location.href = "/";
+        const redirect = searchParams.get("redirect") || "/";
+        router.push(redirect);
       }, 1000);
 
     } catch (err: any) {
@@ -88,30 +95,9 @@ export default function Login() {
         </div>
       </section>
 
-      {/* ToastContainer cần được render */}
-      <ToastContainer position="top-right" />
 
-      <section className="fade-right reveal brand mt-5 mb-5">
-        <div className="brand-logos d-flex justify-content-between align-items-center my-5" style={{ width: "85%", margin: "0 auto" }} >
-          <Link href="https://fashionlive.com" target="_blank">
-            <img src="./images/Screenshot 2025-05-20 153723.png" alt="Fashion Live"
-              className="brand-logo img-fluid" />
-          </Link>
-          <Link href="https://handcrafted.com" target="_blank">
-            <img src="./images/Screenshot 2025-05-20 153816.png" alt="Hand Crafted"
-              className="brand-logo img-fluid" />
-          </Link>
-          <Link href="https://mestonix.com" target="_blank">
-            <img src="./images/Screenshot 2025-05-20 153833.png" alt="Mestonix" className="brand-logo img-fluid" />
-          </Link>
-          <Link href="https://sunshine.com" target="_blank">
-            <img src="./images/Screenshot 2025-05-20 153852.png" alt="Sunshine" className="brand-logo img-fluid" />
-          </Link>
-          <Link href="https://pure.com" target="_blank">
-            <img src="./images/Screenshot 2025-05-20 153911.png" alt="Pure" className="brand-logo img-fluid" />
-          </Link>
-        </div>
-      </section>
+
+      <BannerBrand />
     </div>
   );
 }

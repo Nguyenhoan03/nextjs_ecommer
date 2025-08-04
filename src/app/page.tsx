@@ -14,6 +14,7 @@ import '@/styles/unauth/homepage/CardLeatest.scss';
 import '@/styles/unauth/homepage/CardFeatured.scss';
 import '@/styles/unauth/homepage/home.scss';
 import BackToTop from '@/components/ui/BackToTop';
+import BannerBrand from '@/components/layout/BannerBrand';
 export const metadata: Metadata = {
   title: 'Index page',
   description: 'Description of the index page',
@@ -192,27 +193,7 @@ export default async function IndexPage() {
         </div>
       </section>
 
-      <section className="fade-right reveal brand mt-5 mb-5">
-        <div className="brand-logos d-flex justify-content-between align-items-center my-5">
-          <Link href="https://fashionlive.com" target="_blank">
-            <img src="./assets/images/unauth/Screenshot 2025-05-20 153723.png" alt="Fashion Live"
-              className="brand-logo img-fluid" />
-          </Link>
-          <Link href="https://handcrafted.com" target="_blank">
-            <img src="./assets/images/unauth/Screenshot 2025-05-20 153816.png" alt="Hand Crafted"
-              className="brand-logo img-fluid" />
-          </Link>
-          <Link href="https://mestonix.com" target="_blank">
-            <img src="./assets/images/unauth/Screenshot 2025-05-20 153833.png" alt="Mestonix" className="brand-logo img-fluid" />
-          </Link>
-          <Link href="https://sunshine.com" target="_blank">
-            <img src="./assets/images/unauth/Screenshot 2025-05-20 153852.png" alt="Sunshine" className="brand-logo img-fluid" />
-          </Link>
-          <Link href="https://pure.com" target="_blank">
-            <img src="./assets/images/unauth/Screenshot 2025-05-20 153911.png" alt="Pure" className="brand-logo img-fluid" />
-          </Link>
-        </div>
-      </section>
+      <BannerBrand />
 
 
       <section className="fade-up reveal leatest-blog mt-5 mb-5">

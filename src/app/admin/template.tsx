@@ -2,7 +2,7 @@ import "@/styles/admin/Admin.scss";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminTemplate({ children }: { children: React.ReactNode }) {
   return (
     <div className="admin-layout">
       <Sidebar />
