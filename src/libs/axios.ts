@@ -5,7 +5,9 @@ type FetchOptions = {
   body?: any;
   cache?: RequestCache;
   next?: NextFetchRequestConfig;
+  credentials?: RequestCredentials;
 };
+
 
 export async function fetcher<T>(url: string, options?: FetchOptions): Promise<T> {
   const response = await fetch(url, {
@@ -17,7 +19,7 @@ export async function fetcher<T>(url: string, options?: FetchOptions): Promise<T
     body: options?.body ? JSON.stringify(options.body) : undefined,
     cache: options?.cache || 'no-store',
     next: options?.next,
-    credentials: "include",
+    credentials: options?.credentials || "include",
   });
 
   if (!response.ok) {

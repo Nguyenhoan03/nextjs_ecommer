@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from 'next/navigation';
 import { redirectToLogin } from "@/utils/authRedirect";
+import BannerBrand from "@/components/layout/BannerBrand";
 export default function ProductPage() {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [activeImage, setActiveImage] = useState<number>(0);
@@ -25,8 +26,9 @@ export default function ProductPage() {
         toast.error("Hãy đăng nhập để sử dụng giỏ hàng.");
         return redirectToLogin(router);
       }
+      
 
-      router.push("/cart");
+      // router.push("/cart");
     } catch (error) {
       toast.error("Có lỗi xảy ra. Vui lòng thử lại.");
     }
@@ -186,20 +188,7 @@ export default function ProductPage() {
         </div>
       </section >
 
-      {/* Brands Section */}
-      < div className="container mt-5" >
-        <section className="d-flex justify-content-around align-items-center my-5">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <a key={n} href="#">
-              <img
-                src={`./images/Screenshot 2025-05-20 1539${10 + n}.png`}
-                alt={`Brand ${n}`}
-                className="img-fluid"
-              />
-            </a>
-          ))}
-        </section>
-      </div >
+     <BannerBrand />
     </div >
 
   );

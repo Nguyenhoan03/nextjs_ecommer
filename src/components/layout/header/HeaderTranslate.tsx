@@ -7,11 +7,14 @@ import { Menu, MenuItem, IconButton, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "@/redux/store";
 import { setUser, logout } from "@/redux/slice/authSlice";
-
+import { Badge } from "@mui/material";
+import { setCartCount } from "@/redux/slice/cartSlice";
+import { fetcher } from "@/libs/axios";
 const HeaderTranslate = () => {
   const { user, isLoggedIn } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { count } = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,6 +30,31 @@ const HeaderTranslate = () => {
     };
     fetchUser();
   }, [dispatch]);
+
+  useEffect(() => {
+    const fetchCartCount = async () => {
+      if (!isLoggedIn) return;
+      try {
+        const res = await fetcher<number>(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/cart`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJubWhAZ21haWwuY29tIiwiaWF0IjoxNzU0NDAzMDQxLCJleHAiOjE3NTQ0ODk0NDF9.Ph2hSwum9NoDlq-8StJl4S9zaTyo0RCJlxhRN52b0Ms`,
+          },
+          credentials: "include",
+        });
+        if (res) {
+          dispatch(setCartCount(res));
+        }
+      } catch (error: any) {
+        console.error("Error fetching cart count:", error);
+        if (error instanceof Error) {
+          console.error("Error message:", error.message);
+        }
+      }
+    };
+
+    fetchCartCount();
+  }, [isLoggedIn, dispatch]);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -97,12 +125,13 @@ const HeaderTranslate = () => {
       </Link>
 
       {/* Cart */}
-      <Link
-        href="/cart"
-        className="flex items-center gap-2 hover:text-gray-200 transition"
-      >
-        <FaCartShopping /> <span>Cart</span>
+      <Link href="/cart" className="flex items-center gap-2 hover:text-gray-200 transition">
+        <Badge badgeContent={count} color="error">
+          <FaCartShopping /> {count}
+        </Badge>
+        <span>Cart</span>
       </Link>
+
     </div>
   );
 };

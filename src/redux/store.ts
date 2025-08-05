@@ -5,12 +5,12 @@ import { useDispatch } from "react-redux";
 
 // Import reducer từ slices
 import authReducer from "./slice/authSlice";
-// import cartReducer from "./slice/cartSlice";
+import cartReducer from "./slice/cartSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    // cart: cartReducer,
+    cart: cartReducer,
   },
 });
 
