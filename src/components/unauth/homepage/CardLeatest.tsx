@@ -10,7 +10,7 @@ interface CardLeatestProps {
 const CardLeatest = ({ item }: CardLeatestProps) => {
   return (
     <div className="latest-products__item">
-      <Link href={`/products/${item.name}`} className="latest-products__link">
+      <Link href={`/products/${item.id}/${item.slug}`} className="latest-products__link">
         <div className="latest-products__img-wrapper position-relative">
           <Image
             src={item.thumbnail ? "/assets/images/unauth/" + item.thumbnail : "/assets/images/unauth/default_image.jpg"}

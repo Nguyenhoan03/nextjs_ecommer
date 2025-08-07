@@ -1,4 +1,5 @@
 export interface BaseCardItem {
+  id?: number,
   thumbnail?: string | undefined;
   name: string;
   slug: string;

@@ -1,23 +1,49 @@
 'use client'
 import "@/styles/unauth/ProductDetail.scss"
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useRouter } from 'next/navigation';
-import { redirectToLogin } from "@/utils/authRedirect";
+import { useParams, useRouter } from 'next/navigation';
 import BannerBrand from "@/components/layout/BannerBrand";
+import { useAppDispatch } from "@/redux/store";
+import { fetcher } from "@/libs/axios";
+import { incrementCart } from "@/redux/slice/cartSlice";
+import { redirectToLogin } from "@/utils/authRedirect";
+
 export default function ProductPage() {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [activeImage, setActiveImage] = useState<number>(0);
+  const param = useParams();
+  const [loading, setLoading] = useState(true);
+  const [dataDetail, setDataDetail] = useState<any>(null);
   const router = useRouter();
-
+  const dispatch = useAppDispatch();
   const images = [
     'https://images.unsplash.com/photo-1512436991641-6745cdb1723f',
     'https://images.unsplash.com/photo-1465101046530-73398c7f28ca',
     'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
     'https://images.unsplash.com/photo-1519125323398-675f0ddb6308',
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const apiData = await fetcher<any>(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/products/${param.id}`);
+        setDataDetail(apiData);
+      } catch {
+        toast.error("Không tải được dữ liệu sản phẩm!");
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (param?.id) fetchData();
+  }, [param]);
+
+
+
+
   const handleAddToCart = async () => {
     try {
       const res = await fetch("/api/auth/me", { credentials: "include" });
@@ -26,9 +52,18 @@ export default function ProductPage() {
         toast.error("Hãy đăng nhập để sử dụng giỏ hàng.");
         return redirectToLogin(router);
       }
-      
 
-      // router.push("/cart");
+      dispatch(incrementCart());
+      toast.success("Đã thêm vào giỏ hàng.");
+      // await fetcher<[user_id:number,product_id:number,quantity:number]>(`${process.env.NEXT_PUBLIC_API_URL}/add-cart`, {
+      //   method: 'POST',
+      //   body: {},
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   credentials: 'include',
+      // })
+
     } catch (error) {
       toast.error("Có lỗi xảy ra. Vui lòng thử lại.");
     }
@@ -66,7 +101,7 @@ export default function ProductPage() {
 
             {/* Product Description */}
             <div className="col-12 product__description col-md-4 order-3">
-              <div className="product-title h4 fw-bold">Playwood arm chair</div>
+              <div className="product-title h4 fw-bold">{dataDetail.name}</div>
               <div className="product-rating mb-2">
                 <i className="fas fa-star text-warning"></i>
                 <i className="fas fa-star text-warning"></i>
@@ -188,7 +223,7 @@ export default function ProductPage() {
         </div>
       </section >
 
-     <BannerBrand />
+      <BannerBrand />
     </div >
 
   );

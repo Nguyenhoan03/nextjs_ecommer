@@ -32,24 +32,16 @@ const HeaderTranslate = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    if (!isLoggedIn) return;
+
     const fetchCartCount = async () => {
-      if (!isLoggedIn) return;
       try {
-        const res = await fetcher<number>(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/cart`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJubWhAZ21haWwuY29tIiwiaWF0IjoxNzU0NDAzMDQxLCJleHAiOjE3NTQ0ODk0NDF9.Ph2hSwum9NoDlq-8StJl4S9zaTyo0RCJlxhRN52b0Ms`,
-          },
-          credentials: "include",
-        });
-        if (res) {
-          dispatch(setCartCount(res));
-        }
-      } catch (error: any) {
+        const res = await fetch("/api/cart", { credentials: "include", cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+        dispatch(setCartCount(data));
+      } catch (error) {
         console.error("Error fetching cart count:", error);
-        if (error instanceof Error) {
-          console.error("Error message:", error.message);
-        }
       }
     };
 
@@ -129,7 +121,7 @@ const HeaderTranslate = () => {
         <Badge badgeContent={count} color="error">
           <FaCartShopping /> {count}
         </Badge>
-        <span>Cart</span>
+        
       </Link>
 
     </div>
