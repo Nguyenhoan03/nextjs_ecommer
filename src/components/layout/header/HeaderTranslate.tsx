@@ -9,7 +9,6 @@ import { RootState, useAppDispatch } from "@/redux/store";
 import { setUser, logout } from "@/redux/slice/authSlice";
 import { Badge } from "@mui/material";
 import { setCartCount } from "@/redux/slice/cartSlice";
-import { fetcher } from "@/libs/axios";
 const HeaderTranslate = () => {
   const { user, isLoggedIn } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();

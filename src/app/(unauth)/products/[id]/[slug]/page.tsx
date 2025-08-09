@@ -101,7 +101,7 @@ export default function ProductPage() {
 
             {/* Product Description */}
             <div className="col-12 product__description col-md-4 order-3">
-              <div className="product-title h4 fw-bold">{dataDetail.name}</div>
+              <div className="product-title h4 fw-bold">{dataDetail?.name ?? "hoannm"}</div>
               <div className="product-rating mb-2">
                 <i className="fas fa-star text-warning"></i>
                 <i className="fas fa-star text-warning"></i>
