@@ -10,7 +10,7 @@ export async function GET() {
     }
 
     try {
-        const count = await fetcher<number>(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/cart`, {
+        const count = await fetcher<number>(`${process.env.NEXT_PUBLIC_API_BACKEND}/api/quantity-product-cart`, {
             headers: { Authorization: `Bearer ${token}` },
             cache: "no-store",
         });

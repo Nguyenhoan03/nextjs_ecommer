@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value; 
 
-  const protectedRoutes = ["/cart", "/checkout", "/profile"];
+  const protectedRoutes = ["/product-cart", "/checkout", "/profile"];
 
   if (protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route))) {
     if (!token) {
@@ -18,5 +18,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/cart/:path*", "/checkout/:path*", "/profile/:path*"],
+  matcher: ["/product-cart/:path*", "/checkout/:path*", "/profile/:path*"],
 };

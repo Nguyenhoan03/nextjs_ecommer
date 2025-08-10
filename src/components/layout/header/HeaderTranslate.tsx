@@ -91,13 +91,13 @@ const HeaderTranslate = () => {
             className="headerTranslate__menuItem"
           >
             <MenuItem onClick={handleClose}>
-              <Link href="/account">👤 Thông tin tài khoản</Link>
+              <Link href="/account" style={{textDecoration:"none",color:"black"}}>👤 Thông tin tài khoản</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Link href="/orders">📦 Đơn hàng của tôi</Link>
+              <Link href="/orders" style={{textDecoration:"none",color:"black"}}>📦 Đơn hàng của tôi</Link>
             </MenuItem>
             <MenuItem onClick={handleLogout}>
-              <span className="text-red-500">🚪 Đăng xuất</span>
+              <span className="text-black">🚪 Đăng xuất</span>
             </MenuItem>
           </Menu>
         </>
@@ -110,17 +110,17 @@ const HeaderTranslate = () => {
       {/* Wishlist */}
       <Link
         href="/wishlist"
-        className="flex items-center gap-2 hover:text-gray-200 transition pl-5"
+        className="flex items-center text-decoration-none text-white gap-2 hover:text-gray-200 transition pl-5"
       >
         <FaHeart /> <span>Wishlist</span>
       </Link>
 
       {/* Cart */}
-      <Link href="/cart" className="flex items-center gap-2 hover:text-gray-200 transition">
+      <Link href="/cart" className="flex text-white items-center gap-2 hover:text-gray-200 transition">
         <Badge badgeContent={count} color="error">
           <FaCartShopping /> {count}
         </Badge>
-        
+
       </Link>
 
     </div>
