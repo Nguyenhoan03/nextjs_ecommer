@@ -1,8 +1,88 @@
-'use client'
-import React from 'react'
-import "@/styles/auth/cart.scss"
-import BannerBrand from '@/components/layout/BannerBrand'
-const page = () => {
+// app/cart/page.tsx  (client)
+'use client';
+import React, { useEffect, useState } from "react";
+import "@/styles/auth/cart.scss";
+import BannerBrand from '@/components/layout/BannerBrand';
+
+interface ProductCartProps {
+    id: number;
+    name: string;
+    slug?: string;
+    sale_price: number;
+    quantity: number;
+    thumbnail?: string;
+}
+
+export default function CartPage() {
+    const [loading, setLoading] = useState(true);
+    const [productCart, setProductCart] = useState<ProductCartProps[]>([]);
+    const [count, setCount] = useState<number>(0);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const fetchCart = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch("/api/cart", {
+                    credentials: "include",
+                    cache: "no-store",
+                });
+
+                if (!res.ok) {
+                    if (res.status === 401) {
+                        setError("Unauthorized. Vui lòng đăng nhập.");
+                    } else {
+                        setError("Load cart thất bại.");
+                    }
+                    return;
+                }
+
+                const data = await res.json();
+                if (cancelled) return;
+
+                setCount(data.count ?? 0);
+                setProductCart(Array.isArray(data.productCart) ? data.productCart : []);
+            } catch (err) {
+                console.error(err);
+                setError("Lỗi mạng.");
+            } finally {
+                if (!cancelled) setLoading(false);
+            }
+        };
+
+        fetchCart();
+        return () => { cancelled = true; };
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="container py-5">
+                <div className="skeleton h-6 w-full mb-2 bg-gray-200 rounded" />
+                <div className="skeleton h-6 w-full mb-2 bg-gray-200 rounded" />
+                <div className="skeleton h-6 w-full mb-2 bg-gray-200 rounded" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return <div className="container py-5"><p className="text-danger">{error}</p></div>;
+    }
+
+    const updateQuantity = async (id: number, quantity: number) => {
+        if (quantity < 1) return;
+        try {
+            setProductCart(prev =>
+                prev.map(item =>
+                    item.id === id ? { ...item, quantity } : item
+                )
+            );
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div>
@@ -16,6 +96,7 @@ const page = () => {
                                         <table className="table align-middle">
                                             <thead>
                                                 <tr>
+
                                                     <th className="fw-bold cart-title">Product</th>
                                                     <th className="fw-bold cart-title">Price</th>
                                                     <th className="fw-bold cart-title">Quantity</th>
@@ -23,212 +104,71 @@ const page = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div className="d-flex align-items-center gap-3">
-                                                            <img src="./images/Rectangle 34.png" alt="Product"
-                                                                className="cart-img" />
-                                                            <div>
-                                                                <div className="cart-product-name"><a href=""> Ur diam consequat
-                                                                </a></div>
-                                                                <div className="cart-product-desc">Color: Brown</div>
-                                                                <div className="cart-product-desc">Size: XL</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-price">$32.00</td>
-                                                    <td>
-                                                        <div className="cart-qty-group">
-                                                            <button type="button" className="qty-btn qty-btn-minus">-</button>
-                                                            <span className="cart-qty-value">1</span>
-                                                            <button type="button" className="qty-btn qty-btn-plus">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-total">£32.00 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="d-flex align-items-center gap-3">
-                                                            <img src="./images/Rectangle 35.png" alt="Product"
-                                                                className="cart-img" />
-                                                            <div>
-                                                                <div className="cart-product-name"><a href=""> Vel faucibus
-                                                                    posuere </a></div>
-                                                                <div className="cart-product-desc">Color: Brown</div>
-                                                                <div className="cart-product-desc">Size: XL</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-price">$32.00</td>
-                                                    <td>
-                                                        <div className="cart-qty-group">
-                                                            <button type="button" className="qty-btn qty-btn-minus">-</button>
-                                                            <span className="cart-qty-value">1</span>
-                                                            <button type="button" className="qty-btn qty-btn-plus">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-total">£32.00 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="d-flex align-items-center gap-3">
-                                                            <img src="./images/Rectangle 36.png" alt="Product"
-                                                                className="cart-img" />
-                                                            <div>
-                                                                <div className="cart-product-name"><a href=""> Ac vitae
-                                                                    vestibulum </a></div>
-                                                                <div className="cart-product-desc">Color: Brown</div>
-                                                                <div className="cart-product-desc">Size: XL</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-price">$32.00</td>
-                                                    <td>
-                                                        <div className="cart-qty-group">
-                                                            <button type="button" className="qty-btn qty-btn-minus">-</button>
-                                                            <span className="cart-qty-value">1</span>
-                                                            <button type="button" className="qty-btn qty-btn-plus">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-total">£32.00 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="d-flex align-items-center gap-3">
-                                                            <img src="./images/Rectangle 34.png" alt="Product"
-                                                                className="cart-img" />
-                                                            <div>
-                                                                <div className="cart-product-name"><a href=""> Elit massa diam
-                                                                </a></div>
-                                                                <div className="cart-product-desc">Color: Brown</div>
-                                                                <div className="cart-product-desc">Size: XL</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-price">$32.00</td>
-                                                    <td>
-                                                        <div className="cart-qty-group">
-                                                            <button type="button" className="qty-btn qty-btn-minus">-</button>
-                                                            <span className="cart-qty-value">1</span>
-                                                            <button type="button" className="qty-btn qty-btn-plus">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-total">£32.00 </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="d-flex align-items-center gap-3">
-                                                            <img src="./images/Rectangle 35.png" alt="Product"
-                                                                className="cart-img" />
-                                                            <div>
-                                                                <div className="cart-product-name"><a href=""> Proin pharetra
-                                                                    elementum </a></div>
-                                                                <div className="cart-product-desc">Color: Brown</div>
-                                                                <div className="cart-product-desc">Size: XL</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-price">$32.00</td>
-                                                    <td>
-                                                        <div className="cart-qty-group">
-                                                            <button type="button" className="qty-btn qty-btn-minus">-</button>
-                                                            <span className="cart-qty-value">1</span>
-                                                            <button type="button" className="qty-btn qty-btn-plus">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-total">£32.00 </td>
-                                                </tr>
+                                                {productCart.length === 0 && (
+                                                    <tr><td colSpan={4}>Cart is empty</td></tr>
+                                                )}
 
-                                                <tr>
-                                                    <td>
-                                                        <div className="d-flex align-items-center gap-3">
-                                                            <img src="./images/Rectangle 36.png" alt="Product"
-                                                                className="cart-img" />
-                                                            <div>
-                                                                <div className="cart-product-name"><a href=""> Ac vitae
-                                                                    vestibulum </a></div>
-                                                                <div className="cart-product-desc">Color: Brown</div>
-                                                                <div className="cart-product-desc">Size: XL</div>
+                                                {productCart.map(item => (
+                                                    <tr key={item.id}>
+                                                        <td>
+                                                            <div className="d-flex align-items-center gap-3">
+                                                                <img src={item.thumbnail ?? "/assets/images/placeholder.png"} alt={item.name} className="cart-img" />
+                                                                <div>
+                                                                    <div className="cart-product-name">{item.name}</div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-price">$32.00</td>
-                                                    <td>
-                                                        <div className="cart-qty-group">
-                                                            <button type="button" className="qty-btn qty-btn-minus">-</button>
-                                                            <span className="cart-qty-value">1</span>
-                                                            <button type="button" className="qty-btn qty-btn-plus">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-total">£32.00 </td>
-                                                </tr>
+                                                        </td>
+                                                        <td className="cart-price">${item.sale_price}</td>
+                                                        <td className="flex items-center gap-2">
+                                                            <button
+                                                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                                                className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                                                            >−</button>
 
-                                                <tr>
-                                                    <td>
-                                                        <div className="d-flex align-items-center gap-3">
-                                                            <img src="./images/Rectangle 36.png" alt="Product"
-                                                                className="cart-img" />
-                                                            <div>
-                                                                <div className="cart-product-name"><a href=""> Ac vitae
-                                                                    vestibulum </a></div>
-                                                                <div className="cart-product-desc">Color: Brown</div>
-                                                                <div className="cart-product-desc">Size: XL</div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-price">$32.00</td>
-                                                    <td>
-                                                        <div className="cart-qty-group">
-                                                            <button type="button" className="qty-btn qty-btn-minus">-</button>
-                                                            <span className="cart-qty-value">1</span>
-                                                            <button type="button" className="qty-btn qty-btn-plus">+</button>
-                                                        </div>
-                                                    </td>
-                                                    <td className="cart-total">£32.00 </td>
-                                                </tr>
+                                                            <span>{item.quantity}</span>
+
+                                                            <button
+                                                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                                                className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                                                            >+</button>
+                                                        </td>
+
+                                                        <td className="cart-total">${(item.sale_price * item.quantity)}</td>
+                                                    </tr>
+                                                ))}
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div className="d-flex justify-content-between mt-4">
-                                        <button type="button" className="btn cart-btn-update">Update Cart</button>
-                                        <button type="button" className="btn cart-btn-clear">Clear Cart</button>
-                                    </div>
                                 </form>
                             </div>
+
+                            {/* right summary */}
                             <div className="col-lg-4 shopping-cart-section__right">
                                 <h5 className="cart-totals-title text-center mb-4">Cart Totals</h5>
                                 <div className="cart-totals-box mb-4">
                                     <div className="d-flex justify-content-between mb-2 border-bottom">
                                         <span className="cart-totals-label">Subtotals:</span>
-                                        <span className="cart-totals-value">£219.00</span>
+                                        <span className="cart-totals-value">
+                                            ${productCart.reduce((s, it) => s + it.sale_price * it.quantity, 0)}
+                                        </span>
                                     </div>
                                     <div className="d-flex justify-content-between mb-2 border-bottom">
                                         <span className="cart-totals-label">Totals:</span>
-                                        <span className="cart-totals-value">£325.00</span>
+                                        <span className="cart-totals-value">${productCart.reduce((s, it) => s + it.price * it.quantity, 0)}</span>
                                     </div>
                                     <div className="mb-3">
-                                        <span className="cart-totals-note"><i className="fa fa-check-circle"></i> Shipping &amp;
-                                            taxes calculated at checkout</span>
+                                        <span className="cart-totals-note"><i className="fa fa-check-circle" /> Shipping & taxes calculated at checkout</span>
                                     </div>
                                     <button className="btn cart-btn-checkout w-100">Proceed To Checkout</button>
                                 </div>
-                                <h6 className="cart-calc-title text-center mb-4">Calculate Shopping</h6>
-                                <div className="cart-calc-box">
-                                    <input type="text" className="form-control mb-2" placeholder="Bangladesh" />
-                                    <input type="text" className="form-control mb-2" placeholder="Mirpur Dhaka - 1200" />
-                                    <input type="text" className="form-control mb-3" placeholder="Postal Code" />
-                                    <button className="btn cart-btn-calc w-100">Calculate Shipping</button>
-                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </section>
 
-
             <BannerBrand />
         </div>
-    )
+    );
 }
-
-export default page

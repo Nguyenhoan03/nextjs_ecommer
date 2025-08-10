@@ -38,7 +38,7 @@ const HeaderTranslate = () => {
         const res = await fetch("/api/cart", { credentials: "include", cache: "no-store" });
         if (!res.ok) return;
         const data = await res.json();
-        dispatch(setCartCount(data));
+        dispatch(setCartCount(data.count ?? 0));
       } catch (error) {
         console.error("Error fetching cart count:", error);
       }
@@ -117,8 +117,8 @@ const HeaderTranslate = () => {
 
       {/* Cart */}
       <Link href="/cart" className="flex text-white items-center gap-2 hover:text-gray-200 transition">
-        <Badge badgeContent={count} color="error">
-          <FaCartShopping /> {count}
+        <Badge badgeContent={count} color="error" className="p-1">
+          <FaCartShopping /> 
         </Badge>
 
       </Link>
