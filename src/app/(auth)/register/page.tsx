@@ -110,7 +110,7 @@ const RegisterPage = () => {
                         </button>
                         <div className="text-center register-bottom-text">
                             Already have an account?
-                            <Link href="/login" className="login-create ms-1">
+                            <Link href="/login" className="login-create ms-1" prefetch={true}>
                                 Sign In
                             </Link>
                         </div>

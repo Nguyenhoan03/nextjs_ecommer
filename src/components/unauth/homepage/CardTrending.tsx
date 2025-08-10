@@ -9,7 +9,7 @@ interface TrendingProduct {
 const CardTrending = ({item} : TrendingProduct) => {
     return (
         <div className="trending-product__card col-6 col-sm-6 col-md-3 mb-4 mt-4">
-            <Link href={`/products/${item.id}/${item.slug}`} className="trending-product__link">
+            <Link href={`/products/${item.id}/${item.slug}`} className="trending-product__link" prefetch={true}>
             <div className="trending-product__card-inner">
                 <Image
                         src={item.thumbnail ? "/assets/images/unauth/" + item.thumbnail : "/assets/images/unauth/default_image.jpg"}

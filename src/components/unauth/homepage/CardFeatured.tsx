@@ -10,7 +10,7 @@ interface CardFeaturedProps {
 const CardFeatured = ({ item }: CardFeaturedProps) => {
   return (
     <div className="card__featured-product">
-      <Link href={`/products/${item.id}/${item.slug}`} className="">
+      <Link href={`/products/${item.id}/${item.slug}`} className="" prefetch={true}>
       <div className="card-actions">
         <button><FaCartShopping /></button>
         <button><FaHeart /></button>

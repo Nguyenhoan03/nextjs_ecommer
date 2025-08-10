@@ -13,6 +13,7 @@ import Footer from '@/components/layout/Footer';
 import { ReduxProvider } from '@/redux/Provider';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProgressProvider from '@/app/ProgressProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -21,7 +22,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    // ... add more open graph meta tags
   },
 };
 
@@ -37,11 +37,13 @@ export default function RootLayout({
           inter.className,
         )}
       >
-      <ToastContainer position="top-right" />
+        <ToastContainer position="top-right" />
         <ReduxProvider>
-        <Header />
-        {children}
-        <Footer />
+          <ProgressProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ProgressProvider>
         </ReduxProvider>
       </body>
     </html>
